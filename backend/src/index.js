@@ -12,7 +12,7 @@ dotenv.config();
 
 const usr = process.env.MONGO_DB_USERNAME;
 const pwd = process.env.MONGO_DB_PASSWORD;
-const url = "theoredb-9lffj.mongodb.net/test?retryWrites=true&w=majority";
+const url = process.env.MONGO_DB_URL;
 
 /**
  * Connects to MongoDB Server and returns connected client
