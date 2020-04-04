@@ -8,7 +8,7 @@ const Mutation = {
     const { client } = ctx;
 
     console.log(chalk.blue(`----------------------------------------`));
-    console.log(chalk.blue(`REQUEST MADE TO 'login'`));
+    console.log(chalk.blue(`REQUEST MADE TO 'signUp'`));
     console.log(chalk.blue(`Username: ${username}`));
     console.log(chalk.blue(`Password: ${password}`));
     console.log(chalk.blue(`----------------------------------------`));
