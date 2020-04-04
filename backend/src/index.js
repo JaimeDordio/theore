@@ -39,6 +39,8 @@ const connectToDb = async function (usr, pwd, url) {
 
 const runGraphQLServer = function (context) {
   const resolvers = {
+    Author,
+    Commerce,
     Query,
     Mutation,
   };

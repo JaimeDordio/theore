@@ -18,6 +18,7 @@ type Query {
 }
 
 type Mutation {
+  test: String
   signUp: Author!
   login: Author!
   addCommerce: Commerce!
