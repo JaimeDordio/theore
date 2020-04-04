@@ -7,6 +7,8 @@ import { MongoClient, ObjectID } from "mongodb";
 
 import Query from "./resolvers/Query";
 import Mutation from "./resolvers/Mutation";
+import Author from "./resolvers/Author";
+import Commerce from "./resolvers/Commerce";
 
 dotenv.config();
 
