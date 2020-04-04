@@ -9,7 +9,7 @@ const App = props => {
 
   return (
     <ApolloProvider client={client}>
-      <div>
+      <div className="container p-4">
         <h2>My first Apollo app 🚀</h2>
         <Signup/>
         <Stores/>
