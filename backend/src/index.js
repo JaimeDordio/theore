@@ -8,7 +8,7 @@ import { MongoClient, ObjectID } from "mongodb";
 import Query from "./resolvers/Query";
 import Mutation from "./resolvers/Mutation";
 import User from "./resolvers/User";
-import Commerce from "./resolvers/Commerce";
+import Store from "./resolvers/Store";
 
 dotenv.config();
 
@@ -42,7 +42,7 @@ const connectToDb = async function (usr, pwd, url) {
 const runGraphQLServer = function (context) {
   const resolvers = {
     User,
-    Commerce,
+    Store,
     Query,
     Mutation,
   };
@@ -71,7 +71,7 @@ const runGraphQLServer = function (context) {
 
 const runApp = async function () {
   const client = await connectToDb(usr, pwd, url);
-  console.log(chalk.bgGreen.black("\nConnect to Mongo DB"));
+  console.log(chalk.bgGreen.black("\nConnected to Mongo DB"));
   try {
     runGraphQLServer({ client });
   } catch (e) {

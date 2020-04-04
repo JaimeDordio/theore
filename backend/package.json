@@ -24,6 +24,7 @@
     "chalk": "^3.0.0",
     "dotenv": "^8.2.0",
     "graphql-yoga": "^1.18.3",
-    "mongodb": "^3.3.5"
+    "mongodb": "^3.3.5",
+    "uuid": "^7.0.3"
   }
 }

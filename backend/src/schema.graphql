@@ -3,9 +3,10 @@ type User {
   username: String!
   password: String!
   token: ID
+  addedStores: [Store!]
 }
 
-type Commerce {
+type Store {
   _id: ID!
   name: String!
   website: String!
@@ -19,6 +20,7 @@ type Query {
 
 type Mutation {
   signUp (username: String!, password: String!): User!
-  login: User!
-  addCommerce: Commerce!
+  login (username: String!, password: String!): User!
+  logout: User!
+  addStore: Store!
 }
