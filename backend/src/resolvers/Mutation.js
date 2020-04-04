@@ -2,18 +2,29 @@ import "babel-polyfill";
 import chalk from 'chalk';
 
 const Mutation = {
-  test: async (parent, args, ctx, info) => {
+
+  signUp: async (parent, args, ctx, info) => {
+    const { username, password } = args
     const { client } = ctx;
 
     console.log(chalk.blue(`----------------------------------------`));
-    console.log(chalk.blue(`REQUEST MADE TO 'test'`));
+    console.log(chalk.blue(`--------REQUEST MADE TO 'signUp'--------`));
     console.log(chalk.blue(`----------------------------------------`));
 
-    const db = client.db("Test");
-    const requestsTestCollection = db.collection("requests-test");
-    const result = await requestsTestCollection.find();
+    const db = client.db("theore");
+    const collection = db.collection("users");
 
-    return "OK";
+    if(await collection.findOne({username})){
+      throw new Error(`Username "${username}" is not available.`);
+    }
+
+    const result = await collection.insertOne({username, password});
+
+    return {
+      _id: result.ops[0]._id,
+      username,
+      password
+    }
   }
 };
 

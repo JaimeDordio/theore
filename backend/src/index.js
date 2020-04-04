@@ -7,7 +7,7 @@ import { MongoClient, ObjectID } from "mongodb";
 
 import Query from "./resolvers/Query";
 import Mutation from "./resolvers/Mutation";
-import Author from "./resolvers/Author";
+import User from "./resolvers/User";
 import Commerce from "./resolvers/Commerce";
 
 dotenv.config();
@@ -41,7 +41,7 @@ const connectToDb = async function (usr, pwd, url) {
 
 const runGraphQLServer = function (context) {
   const resolvers = {
-    Author,
+    User,
     Commerce,
     Query,
     Mutation,

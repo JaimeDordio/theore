@@ -1,8 +1,8 @@
-type Author {
+type User {
   _id: ID!
   username: String!
   password: String!
-  token: ID!
+  token: ID
 }
 
 type Commerce {
@@ -10,7 +10,7 @@ type Commerce {
   name: String!
   website: String!
   rating: String!
-  author: Author!
+  author: User!
 }
 
 type Query {
@@ -18,8 +18,7 @@ type Query {
 }
 
 type Mutation {
-  test: String
-  signUp: Author!
-  login: Author!
+  signUp (username: String!, password: String!): User!
+  login: User!
   addCommerce: Commerce!
 }
