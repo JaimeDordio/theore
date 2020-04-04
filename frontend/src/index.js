@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ApolloClient from "apollo-boost";
-import './index.css';
+import './assets/tailwind_output.css'
 import App from './Containers/App.jsx';
 import * as serviceWorker from './serviceWorker';
 
