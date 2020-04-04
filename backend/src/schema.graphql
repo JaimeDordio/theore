@@ -1,7 +1,24 @@
+type Author {
+  _id: ID!
+  username: String!
+  password: String!
+  token: ID!
+}
+
+type Commerce {
+  _id: ID!
+  name: String!
+  website: String!
+  rating: String!
+  author: Author!
+}
+
 type Query {
   test: String
 }
 
 type Mutation {
-  test: String
+  signUp: Author!
+  login: Author!
+  addCommerce: Commerce!
 }
