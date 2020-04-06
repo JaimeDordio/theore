@@ -10,6 +10,7 @@ const User = {
     const collection = db.collection("stores");
 
     const result = await collection.find({author: ObjectID(user)}).toArray();
+    
     return result;
   },
 };
