@@ -54,7 +54,7 @@ const runGraphQLServer = function (context) {
   });
 
   const options = {
-    port: 8002,
+    port: 8001,
   };
 
   try {
