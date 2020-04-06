@@ -8,15 +8,14 @@ const TEST__REQUEST = gql`
   }
 `;
 
-const TestRequest = () => {
+const Stores = (props) => {
   const { loading, error, data } = useQuery(TEST__REQUEST);
-
   console.log(data);
-  
+
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
   return data.test;
 };
 
-export default TestRequest;
+export default Stores;

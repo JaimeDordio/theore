@@ -1,17 +1,21 @@
 import React from "react";
-import { ApolloProvider } from "@apollo/react-hooks";
-import TestRequest from "../Components/apollo-hooks/TestRequest";
+import { Switch, Route } from "react-router-dom";
 
-const App = props => {
-  const { client } = props;
+import Signup from "../Components/Signup";
+import Stores from "../Components/Stores";
+import Header from "../Components/Header";
 
+const App = (props) => {
   return (
-    <ApolloProvider client={client}>
-      <div>
-        <TestRequest/>
-        <h2>My first Apollo app 🚀</h2>
+    <div>
+      <Header />
+      <div className="ph3 pv1 background-gray">
+        <Switch>
+          <Route exact path="/" component={Stores} />
+          <Route exact path="/signup" component={Signup} />
+        </Switch>
       </div>
-    </ApolloProvider>
+    </div>
   );
 };
 
