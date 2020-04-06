@@ -2,6 +2,7 @@ type User {
   _id: ID!
   username: String!
   password: String!
+  userSince: String
   token: ID
   addedStores: [Store!]
 }
@@ -10,7 +11,8 @@ type Store {
   _id: ID!
   name: String!
   website: String!
-  rating: String!
+  dateAdded: String
+  rating: Int
   author: User!
 }
 
@@ -21,6 +23,5 @@ type Query {
 type Mutation {
   signUp (username: String!, password: String!): User!
   login (username: String!, password: String!): User!
-  logout: User!
-  addStore: Store!
+  addStore (name: String!, website: String!, author: ID!, token: ID!): Store!
 }

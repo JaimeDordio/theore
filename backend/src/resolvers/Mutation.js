@@ -1,6 +1,7 @@
 import "babel-polyfill";
-import * as uuid from 'uuid'
+import * as uuid from "uuid";
 import chalk from "chalk";
+import { ObjectID } from "mongodb";
 
 const Mutation = {
   signUp: async (parent, args, ctx, info) => {
@@ -8,7 +9,7 @@ const Mutation = {
     const { client } = ctx;
 
     console.log(chalk.blue(`----------------------------------------`));
-    console.log(chalk.blue(`REQUEST MADE TO 'login'`));
+    console.log(chalk.blue(`REQUEST MADE TO 'signUp'`));
     console.log(chalk.blue(`Username: ${username}`));
     console.log(chalk.blue(`Password: ${password}`));
     console.log(chalk.blue(`----------------------------------------`));
@@ -20,12 +21,24 @@ const Mutation = {
       throw new Error(`Username "${username}" is not available.`);
     }
 
-    const result = await collection.insertOne({ username, password });
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0");
+    var yyyy = today.getFullYear();
+    today = `${dd}/${mm}/${yyyy}`;
+    const userSince = today;
+
+    const result = await collection.insertOne({
+      username,
+      password,
+      userSince,
+    });
 
     return {
       _id: result.ops[0]._id,
       username,
       password,
+      userSince,
     };
   },
 
@@ -45,14 +58,60 @@ const Mutation = {
     const result = await collection.findOne({ username, password });
 
     if (result) {
-      await collection.findOneAndUpdate({ username }, { $set: { token: uuid.v4() } });
+      await collection.findOneAndUpdate(
+        { username },
+        { $set: { token: uuid.v4() } }
+      );
     } else {
       throw new Error(`Wrong username or password.`);
     }
 
-    const result2 = await collection.findOne({username});
+    const result2 = await collection.findOne({ username });
 
     return result2;
+  },
+
+  addStore: async (parent, args, ctx, info) => {
+    const { name, website, author, token } = args;
+    const { client } = ctx;
+
+    console.log(chalk.blue(`----------------------------------------`));
+    console.log(chalk.blue(`REQUEST MADE TO 'addStore'`));
+    console.log(chalk.blue(`Name: ${name}`));
+    console.log(chalk.blue(`Website: ${website}`));
+    console.log(chalk.blue(`Author: ${author}`));
+    console.log(chalk.blue(`Token: ${token}`));
+    console.log(chalk.blue(`----------------------------------------`));
+
+
+    const db = client.db("theore");
+    const collection = db.collection("stores");
+    const collection2 = db.collection("users");
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0");
+    var yyyy = today.getFullYear();
+    today = `${dd}/${mm}/${yyyy}`;
+    const dateAdded = today;
+
+    if(! await collection2.findOne({_id: ObjectID(author), token})){
+      throw new Error(`User not logged in.`)
+    }
+
+    if(await collection.findOne({website})){
+      throw new Error(`Website already added.`)
+    }
+
+    const result = await collection.insertOne({name, website, dateAdded, author});
+
+    return {
+      _id: result.ops[0]._id,
+      name,
+      website,
+      dateAdded,
+      author
+    }
   },
 };
 
