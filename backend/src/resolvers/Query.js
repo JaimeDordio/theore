@@ -21,9 +21,7 @@ const Query = {
       throw new Error ("User not logged in.")
     }
 
-    const result = await collection.find({author: ObjectID(_id)}).toArray();
-
-    console.log(_id)
+    const result = await collection.find({author: _id}).toArray();
 
     return result;
 
