@@ -1,5 +1,5 @@
 import "babel-polyfill";
-import chalk from 'chalk';
+import chalk from "chalk";
 import { ObjectID } from "mongodb";
 
 const Query = {
@@ -14,18 +14,16 @@ const Query = {
     console.log(chalk.blue(`----------------------------------------`));
 
     const db = client.db("theore");
-    const collection = db.collection("stores");
-    const collection2 = db.collection("users");
+    const storesCollection = db.collection("stores");
+    const usersCollection = db.collection("users");
 
-    if(! await collection2.findOne({_id: ObjectID(_id), token})){
-      throw new Error ("User not logged in.")
+    if (!(await collection2.findOne({ _id: ObjectID(_id), token }))) {
+      throw new Error("User not logged in.");
     }
 
-    const result = await collection.find({author: _id}).toArray();
-
+    const result = await collection.find({ author: _id }).toArray();
     return result;
-
-  }
+  },
 };
 
 export { Query as default };
