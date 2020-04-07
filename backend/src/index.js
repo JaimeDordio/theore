@@ -10,7 +10,7 @@ import Mutation from "./resolvers/Mutation";
 import User from "./resolvers/User";
 import Store from "./resolvers/Store";
 
-dotenv.config();
+dotenv.config({ path: '../.env' });
 
 const usr = process.env.MONGO_DB_USERNAME;
 const pwd = process.env.MONGO_DB_PASSWORD;
@@ -54,7 +54,7 @@ const runGraphQLServer = function (context) {
   });
 
   const options = {
-    port: 8002,
+    port: process.env.GRAPHQL_PORT,
   };
 
   try {
