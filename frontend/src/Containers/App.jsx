@@ -1,7 +1,7 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 
-import Signup from "../Components/Signup";
+import Login from "../Components/Login";
 import Stores from "../Components/Stores";
 import Header from "../Components/Header";
 
@@ -9,10 +9,10 @@ const App = (props) => {
   return (
     <div>
       <Header />
-      <div className="ph3 pv1 background-gray">
+      <div className="max-w-screen-lg mx-auto">
         <Switch>
           <Route exact path="/" component={Stores} />
-          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/Login" component={Login} />
         </Switch>
       </div>
     </div>

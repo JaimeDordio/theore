@@ -1,61 +1,53 @@
 import React from "react";
-import { Link } from 'react-router-dom'
-import { withRouter } from 'react-router'
+import { Link } from "react-router-dom";
+import { withRouter } from "react-router";
+
 import theore_logo from "../images/theore_logo.svg";
+import { AUTH_TOKEN } from "../constants";
 
 const Header = (props) => {
+  const authToken = localStorage.getItem(AUTH_TOKEN);
+
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-white p-6">
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <img src={theore_logo} alt="Theore" className="fill-current h-8 w-8 mr-2" />
-        <span className="font-semibold text-black text-xl tracking-tight">
-          Theore
-        </span>
-      </div>
-      <div className="block lg:hidden">
-        <button className="flex items-center px-3 py-2 border rounded border-teal-400 hover:text-white hover:border-white">
-          <svg
-            className="fill-current h-3 w-3"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <title>Menu</title>
-            <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-          </svg>
-        </button>
-      </div>
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div className="text-sm lg:flex-grow">
-          <a
-            href="#responsive-header"
-            className="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4"
-          >
-            Home
-          </a>
-          <a
-            href="#responsive-header"
-            className="block mt-4 lg:inline-block lg:mt-0 hover:text-white mr-4"
-          >
-            Login
-          </a>
-          <a
-            href="#responsive-header"
-            className="block mt-4 lg:inline-block lg:mt-0 hover:text-white"
-          >
-            Register
-          </a>
+    <nav className="p-4 bg-gray-100">
+      <div className="max-w-screen-lg flex items-center justify-between mx-auto">
+        <div className="flex items-center">
+          <img
+            src={theore_logo}
+            alt="Theore"
+            className="h-8 w-8 mr-2"
+          />
+          <span className="font-medium text-black text-base mr-5">
+            Theore
+          </span>
+          <input className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" type="text" placeholder="Search a store"/>
         </div>
-      </div>
-      
-      <div className="flex pa1 justify-between nowrap orange">
-        <div className="flex flex-fixed black">
-          <Link to="/" className="ml1 no-underline black">
+
+        <div className="flex items-center">
+          <Link
+            to="/"
+            className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 ml-4 rounded"
+          >
             Home
           </Link>
-          <div className="ml1">|</div>
-          <Link to="/signup" className="ml1 no-underline black">
-            Sign up
-          </Link>
+          {authToken ? (
+            <div
+              className="block mt-4 lg:inline-block lg:mt-0 text-sm hover:text-gray-600 mr-4"
+              onClick={() => {
+                localStorage.removeItem(AUTH_TOKEN);
+                props.history.push(`/`);
+              }}
+            >
+              Logout
+            </div>
+          ) : (
+            <Link
+              to="/login"
+              className="bg-transparent hover:bg-blue-500 text-sm text-blue-700 font-medium hover:text-white py-2 px-4 ml-4 border border-blue-500 hover:border-transparent rounded"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>
