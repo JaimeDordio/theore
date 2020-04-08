@@ -1,11 +1,19 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import { withCookies } from "react-cookie";
 
 import Login from "../Components/Login";
 import Stores from "../Components/Stores";
 import Header from "../Components/Header";
 
 const App = (props) => {
+  // const [authTokenCookie, setAuthTokenCookie] = useCookies(["authCookie"]);
+  // setAuthTokenCookie("authCookie", "my-cookie-value", {
+  //   path: "/",
+  //   maxAge: "86400",
+  //   httpOnly: true,
+  // });
+
   return (
     <div>
       <Header />
@@ -19,4 +27,4 @@ const App = (props) => {
   );
 };
 
-export default App;
+export default withCookies(App);

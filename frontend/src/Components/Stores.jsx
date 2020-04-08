@@ -19,14 +19,14 @@ const ALL_STORES__QUERY = gql`
 `;
 
 const Stores = (props) => {
-  const { loading, error, data } = useQuery(ALL_STORES__QUERY);
+  const { loading, error, data: storesData } = useQuery(ALL_STORES__QUERY);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
   return (
     <div>
-      {data.allStores.map((store) => {
+      {storesData.allStores.map((store) => {
         return (
           <div
             key={store._id}
