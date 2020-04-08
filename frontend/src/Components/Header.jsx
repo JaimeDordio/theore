@@ -1,22 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { withRouter } from "react-router";
-import { useCookies } from "react-cookie";
 
 import theore_logo from "../images/theore_logo.svg";
 
 const Header = (props) => {
-  const [authCookie, setAuthCookie, removeAuthCookie] = useCookies([
-    "authToken",
-  ]);
-
   return (
     <nav className="p-4 bg-gray-100">
       <div className="max-w-screen-lg flex items-center justify-between mx-auto">
         <div className="flex items-center">
           <img src={theore_logo} alt="Theore" className="h-8 w-8 mr-2" />
           <span className="font-medium text-black text-base mr-5">
-            Theore {authCookie["authToken"]}
+            Theore
           </span>
           <input
             className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal"
@@ -35,7 +30,7 @@ const Header = (props) => {
           <div
             className="block mt-4 lg:inline-block lg:mt-0 text-sm hover:text-gray-600 mr-4"
             onClick={() => {
-              removeAuthCookie("authToken");
+              // removeAuthCookie("authToken");
               props.history.push(`/`);
             }}
           >

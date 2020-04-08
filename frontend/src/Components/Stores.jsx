@@ -3,8 +3,8 @@ import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
 const ALL_STORES__QUERY = gql`
-  query AllStores {
-    allStores {
+  query getAllStores {
+    getAllStores {
       _id
       name
       website
@@ -26,7 +26,7 @@ const Stores = (props) => {
 
   return (
     <div>
-      {storesData.allStores.map((store) => {
+      {storesData.getAllStores.map((store) => {
         return (
           <div
             key={store._id}

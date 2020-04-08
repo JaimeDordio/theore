@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import { useCookies } from "react-cookie";
 import md5 from "md5";
 import cloneDeep from "clone-deep";
 
@@ -28,19 +27,8 @@ const SIGNUP__REQUEST = gql`
 `;
 
 const Login = (props) => {
-  const [authCookie, setAuthCookie] = useCookies(["authToken"]);
-  const [
-    loginUser,
-    { loading: loginUserLoading, error: loginUserError, data: loginUserData },
-  ] = useMutation(LOGIN__REQUEST);
-  const [
-    signupUser,
-    {
-      loading: signupUserLoading,
-      error: signupUserError,
-      data: signupUserData,
-    },
-  ] = useMutation(SIGNUP__REQUEST);
+  const [loginUser, { data: loginUserData }] = useMutation(LOGIN__REQUEST);
+  const [signupUser, { data: signupUserData }] = useMutation(SIGNUP__REQUEST);
 
   console.log("[Component] loginUserData", loginUserData);
   console.log("[Component] signupUserData", signupUserData);
@@ -75,8 +63,6 @@ const Login = (props) => {
           password: clonedState.password,
         },
       });
-      console.log("[onSubmitHandler] loginUser done");
-      // _saveUserData(loginUserData.login.token);
     } else {
       await signupUser({
         variables: {
@@ -84,25 +70,24 @@ const Login = (props) => {
           password: clonedState.password,
         },
       });
-      console.log("[onSubmitHandler] signupUser done");
-      // _saveUserData(signupUserData.signup.token);
     }
   };
 
   const _saveUserData = (token) => {
     console.log("[_saveUserData] token", token);
-    setAuthCookie("authToken", token, {
-      path: "/",
-      maxAge: "86400",
-      httpOnly: true,
-    });
+    localStorage.setItem("authToken", token);
+    // setAuthCookie("authToken", token, {
+    //   path: "/",
+    //   maxAge: "86400",
+    //   httpOnly: true,
+    // });
+    console.log(localStorage.getItem("authToken"));
 
     props.history.push(`/`);
   };
 
   return (
     <div className="w-full max-w-xs mx-auto my-20">
-      {authCookie["authToken"]}
       <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         {!loginState && (
           <div className="mb-4">
