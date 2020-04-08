@@ -3,12 +3,12 @@ import chalk from "chalk";
 import { ObjectID } from "mongodb";
 
 const Query = {
-  getStores: async (parent, args, ctx, info) => {
+  getUsersStores: async (parent, args, ctx, info) => {
     const { _id, token } = args;
     const { client } = ctx;
 
     console.log(chalk.blue(`----------------------------------------`));
-    console.log(chalk.blue(`REQUEST MADE TO 'getStores'`));
+    console.log(chalk.blue(`REQUEST MADE TO 'getUsersStores'`));
     console.log(chalk.blue(`ID: ${_id}`));
     console.log(chalk.blue(`Token: ${token}`));
     console.log(chalk.blue(`----------------------------------------`));
@@ -25,11 +25,11 @@ const Query = {
     return result;
   },
 
-  allStores: async (parent, args, ctx, info) => {
+  getAllStores: async (parent, args, ctx, info) => {
     const { client } = ctx;
 
     console.log(chalk.blue(`----------------------------------------`));
-    console.log(chalk.blue(`REQUEST MADE TO 'allStores'`));
+    console.log(chalk.blue(`REQUEST MADE TO 'getAllStores'`));
     console.log(chalk.blue(`----------------------------------------`));
 
     const db = client.db("theore");

@@ -17,8 +17,8 @@ type Store {
 }
 
 type Query {
-  getStores (_id: ID!, token: ID!): [Store!]
-  allStores: [Store!]
+  getUsersStores (_id: ID!, token: ID!): [Store!]
+  getAllStores: [Store!]
 }
 
 type Mutation {
