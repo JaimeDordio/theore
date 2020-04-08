@@ -16,32 +16,43 @@ const Header = (props) => {
             type="text"
             placeholder="Search a store"
           />
-        </div>
-
-        <div className="flex items-center">
           <Link
             to="/"
-            className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-medium py-2 px-4 ml-4 rounded"
+            className="block mt-4 lg:inline-block lg:mt-0 text-black hover:text-gray-500 mx-4"
           >
             Home
           </Link>
-          <div
-            className="block mt-4 lg:inline-block lg:mt-0 text-sm hover:text-gray-600 mr-4"
-            onClick={() => {
-              // removeAuthCookie("authToken");
-              localStorage.removeItem("userId");
-              localStorage.removeItem("userAuthtoken");
-              props.history.push(`/`);
-            }}
-          >
-            Logout
-          </div>
-          <Link
-            to="/login"
-            className="bg-transparent hover:bg-blue-500 text-sm text-blue-700 font-medium hover:text-white py-2 px-4 ml-4 border border-blue-500 hover:border-transparent rounded"
-          >
-            Login
-          </Link>
+        </div>
+
+        <div className="flex items-center">
+          {localStorage.getItem("userId") &&
+          localStorage.getItem("username") &&
+          localStorage.getItem("userAuthtoken") ? (
+            <>
+              <div className="block mt-4 lg:inline-block lg:mt-0 text-sm mr-4">
+                Hello, {localStorage.getItem("username")}
+              </div>
+
+              <div
+                className="block mt-4 lg:inline-block lg:mt-0 text-sm hover:text-gray-600 mr-4 cursor-pointer"
+                onClick={() => {
+                  localStorage.removeItem("userId");
+                  localStorage.removeItem("username");
+                  localStorage.removeItem("userAuthtoken");
+                  props.history.push(`/`);
+                }}
+              >
+                Logout
+              </div>
+            </>
+          ) : (
+            <Link
+              to="/login"
+              className="bg-blue-500 hover:bg-blue-700 text-white text-sm font-semibold py-2 px-4 rounded"
+            >
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>

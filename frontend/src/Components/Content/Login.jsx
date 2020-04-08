@@ -42,9 +42,9 @@ const Login = (props) => {
 
   useEffect(() => {
     if (loginState && loginUserData) {
-      _saveUserData(loginUserData.login._id, loginUserData.login.token);
+      _saveUserData(loginUserData.login._id, loginUserData.login.username, loginUserData.login.token);
     } else if (!loginState && signupUserData) {
-      _saveUserData(signupUserData.login._id, signupUserData.signup.token);
+      _saveUserData(signupUserData.signup._id, signupUserData.signup.username, signupUserData.signup.token);
     }
   });
 
@@ -73,14 +73,17 @@ const Login = (props) => {
     }
   };
 
-  const _saveUserData = (userId, userAuthtoken) => {
+  const _saveUserData = (userId, username, userAuthtoken) => {
     console.log("[_saveUserData] userId", userId);
+    console.log("[_saveUserData] username", username);
     console.log("[_saveUserData] userAuthtoken", userAuthtoken);
 
     localStorage.setItem("userId", userId);
+    localStorage.setItem("username", username);
     localStorage.setItem("userAuthtoken", userAuthtoken);
 
     console.log(localStorage.getItem("userId"));
+    console.log(localStorage.getItem("username"));
     console.log(localStorage.getItem("userAuthtoken"));
 
     props.history.push(`/`);

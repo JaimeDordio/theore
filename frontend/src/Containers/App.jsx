@@ -1,19 +1,14 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
 
-import Login from "../Components/Login";
-import Stores from "../Components/Stores";
-import Header from "../Components/Header";
+import Header  from "../Components/Header";
+import Content from "../Components/Content/Content";
 
 const App = (props) => {
   return (
     <div>
       <Header />
       <div className="max-w-screen-lg mx-auto">
-        <Switch>
-          <Route exact path="/" component={Stores} />
-          <Route exact path="/Login" component={Login} />
-        </Switch>
+        <Content/>
       </div>
     </div>
   );
