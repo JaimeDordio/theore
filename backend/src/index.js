@@ -54,7 +54,7 @@ const runGraphQLServer = function (context) {
   });
 
   const options = {
-    port: process.env.GRAPHQL_PORT || 8000,
+    port: process.env.GRAPHQL_PORT || 8001,
   };
 
   try {
