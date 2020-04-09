@@ -4,6 +4,8 @@ import { gql } from "apollo-boost";
 import md5 from "md5";
 import cloneDeep from "clone-deep";
 
+import ErrorPill from "../Utils/ErrorPill";
+
 const LOGIN__REQUEST = gql`
   mutation Login($username: String!, $password: String!) {
     login(username: $username, password: $password) {
@@ -27,11 +29,18 @@ const SIGNUP__REQUEST = gql`
 `;
 
 const Login = (props) => {
-  const [loginUser, { data: loginUserData }] = useMutation(LOGIN__REQUEST);
-  const [signupUser, { data: signupUserData }] = useMutation(SIGNUP__REQUEST);
-
-  console.log("[Component] loginUserData", loginUserData);
-  console.log("[Component] signupUserData", signupUserData);
+  const [
+    loginUser,
+    { loading: loginUserLoading, error: loginUserError, data: loginUserData },
+  ] = useMutation(LOGIN__REQUEST);
+  const [
+    signupUser,
+    {
+      loading: signupUserLoading,
+      error: signupUserError,
+      data: signupUserData,
+    },
+  ] = useMutation(SIGNUP__REQUEST);
 
   const [loginState, setLoginState] = useState(true);
   const [loginDataState, setLoginDataState] = useState({
@@ -42,13 +51,22 @@ const Login = (props) => {
 
   useEffect(() => {
     if (loginState && loginUserData) {
-      _saveUserData(loginUserData.login._id, loginUserData.login.username, loginUserData.login.token);
+      _saveUserData(
+        loginUserData.login._id,
+        loginUserData.login.username,
+        loginUserData.login.token
+      );
     } else if (!loginState && signupUserData) {
-      _saveUserData(signupUserData.signup._id, signupUserData.signup.username, signupUserData.signup.token);
+      _saveUserData(
+        signupUserData.signUp._id,
+        signupUserData.signUp.username,
+        signupUserData.signUp.token
+      );
     }
   });
 
   const onSubmitHandler = async () => {
+    console.log("[Login.jsx] onSubmitHandler");
     const clonedState = cloneDeep(loginDataState);
 
     clonedState.name = loginState ? "" : document.getElementById("name").value;
@@ -62,6 +80,8 @@ const Login = (props) => {
           username: clonedState.username,
           password: clonedState.password,
         },
+      }).catch((e) => {
+        console.log("Login error", e);
       });
     } else {
       await signupUser({
@@ -69,29 +89,44 @@ const Login = (props) => {
           username: clonedState.username,
           password: clonedState.password,
         },
+      }).catch((e) => {
+        console.log("Signup error", e);
       });
     }
   };
 
   const _saveUserData = (userId, username, userAuthtoken) => {
-    console.log("[_saveUserData] userId", userId);
-    console.log("[_saveUserData] username", username);
-    console.log("[_saveUserData] userAuthtoken", userAuthtoken);
-
     localStorage.setItem("userId", userId);
     localStorage.setItem("username", username);
     localStorage.setItem("userAuthtoken", userAuthtoken);
-
-    console.log(localStorage.getItem("userId"));
-    console.log(localStorage.getItem("username"));
-    console.log(localStorage.getItem("userAuthtoken"));
 
     props.history.push(`/`);
   };
 
   return (
     <div className="w-full max-w-xs mx-auto my-20">
-      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+      {loginUserError ? (
+        <div>
+          {loginUserError.graphQLErrors.map(({ message }, i) => (
+            <ErrorPill key={i} errorMsg={message} />
+          ))}
+        </div>
+      ) : signupUserError ? (
+        <div>
+          {signupUserError.graphQLErrors.map(({ message }, i) => (
+            <ErrorPill key={i} errorMsg={message} />
+          ))}
+        </div>
+      ) : (
+        ""
+      )}
+      <form
+        className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
+        onSubmit={(event) => {
+          event.preventDefault();
+          onSubmitHandler();
+        }}
+      >
         {!loginState && (
           <div className="mb-4">
             <label
@@ -138,12 +173,12 @@ const Login = (props) => {
           />
         </div>
         <div className="flex items-center justify-between">
-          <div
-            className="bg-blue-500 hover:bg-blue-700 text-sm text-white font-medium py-2 px-4 rounded focus:outline-none focus:shadow-outline cursor-pointer"
-            onClick={() => onSubmitHandler()}
+          <button
+            type="submit"
+            className="bg-gray-900 hover:bg-gray-700 text-white text-sm font-medium py-2 px-5 rounded"
           >
             {loginState ? "Log in" : "Register"}
-          </div>
+          </button>
           <div
             className="inline-block align-baseline font-regular text-sm hover:text-gray-500 cursor-pointer"
             onClick={() => setLoginState(!loginState)}
