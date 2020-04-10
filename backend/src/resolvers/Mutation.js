@@ -141,6 +141,36 @@ const Mutation = {
 
     return `Store removed successfully.`
 
+  },
+
+  editStore: async (parent, args, ctx, info) => {
+    const { _id, author, token, newName, newWebsite } = args;
+    const { client } = ctx;
+
+    console.log(chalk.blue(`----------------------------------------`));
+    console.log(chalk.blue(`REQUEST MADE TO 'editStore'`));
+    console.log(chalk.blue(`ID: ${_id}`));
+    console.log(chalk.blue(`Author: ${author}`));
+    console.log(chalk.blue(`Token: ${token}`));
+    console.log(chalk.blue(`New Name: ${newName}`));
+    console.log(chalk.blue(`New Website: ${newWebsite}`));
+    console.log(chalk.blue(`----------------------------------------`));
+
+    const db = client.db("theore");
+    const storesCollection = db.collection("stores");
+    const usersCollection = db.collection("users");
+
+    if(! await usersCollection.findOne({_id: ObjectID(author), token})){
+      throw new Error(`User not logged in.`)
+    }
+
+    if(! await storesCollection.findOne({_id: ObjectID(_id), author})){
+      throw new Error(`User ${author} did not add this shop.`)
+    }
+
+    const result = await storesCollection.findOneAndUpdate({_id: ObjectID(_id)}, {$set: {name: newName, website: newWebsite}}, {returnOriginal: false});
+
+    return result.value;
   }
 };
 

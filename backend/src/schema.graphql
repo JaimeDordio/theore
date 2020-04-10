@@ -26,4 +26,5 @@ type Mutation {
   login (username: String!, password: String!): User!
   addStore (name: String!, website: String!, author: ID!, token: ID!): Store!
   removeStore (_id: ID!, author: ID!, token: ID!): String!
+  editStore (_id: ID!, author: ID!, token: ID!, newName: String!, newWebsite: String!): Store!
 }
