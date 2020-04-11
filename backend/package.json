@@ -4,7 +4,7 @@
   "description": "Private backend API for Theore Webapp",
   "main": "/src/index.js",
   "scripts": {
-    "build": "babel src --out-dir dist",
+    "build": "babel-node src --out-dir dist",
     "dev": "nodemon --watch src --exec 'yarn build && node dist/index.js'",
     "start": "yarn build && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,13 +13,13 @@
   "author": "Theore Team",
   "license": "MIT",
   "devDependencies": {
+    "nodemon": "^1.19.2"
+  },
+  "dependencies": {
     "@babel/cli": "^7.6.0",
     "@babel/core": "^7.6.0",
     "@babel/node": "^7.6.1",
     "@babel/preset-env": "^7.6.0",
-    "nodemon": "^1.19.2"
-  },
-  "dependencies": {
     "babel-polyfill": "^6.26.0",
     "chalk": "^3.0.0",
     "dotenv": "^8.2.0",
