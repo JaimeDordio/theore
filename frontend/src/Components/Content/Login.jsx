@@ -11,7 +11,6 @@ const LOGIN__REQUEST = gql`
     login(username: $username, password: $password) {
       _id
       username
-      password
       token
     }
   }
@@ -22,7 +21,6 @@ const SIGNUP__REQUEST = gql`
     signUp(username: $username, password: $password) {
       _id
       username
-      password
       token
     }
   }
@@ -33,6 +31,7 @@ const Login = (props) => {
     loginUser,
     { loading: loginUserLoading, error: loginUserError, data: loginUserData },
   ] = useMutation(LOGIN__REQUEST);
+
   const [
     signupUser,
     {
