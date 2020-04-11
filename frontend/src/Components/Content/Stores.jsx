@@ -32,7 +32,7 @@ const Stores = (props) => {
             <div className="flex justify-start items-center">
               <a
                 className="px-2 py-1 bg-gray-600 text-xs text-green-100 rounded"
-                href={store.website}
+                href={"http://" + store.website}
               >
                 {store.website}
               </a>
