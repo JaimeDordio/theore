@@ -8,9 +8,9 @@ import App from "./Containers/App.jsx";
 import * as serviceWorker from "./serviceWorker";
 
 const api_uri =
-  process.env.NODE_ENV === "development"
-    ? `http://localhost:8001`
-    : `https://theore.now.sh/`;
+  process.env.NODE_ENV === "production"
+    ? `https://theore.now.sh/`
+    : `http://localhost:8001`;
 
 const client = new ApolloClient({
   uri: api_uri,
