@@ -7,8 +7,13 @@ import "./assets/tailwind_output.css";
 import App from "./Containers/App.jsx";
 import * as serviceWorker from "./serviceWorker";
 
+const api_uri =
+  process.env.NODE_ENV === "development"
+    ? `http://localhost:8001`
+    : `https://theore.now.sh/`;
+
 const client = new ApolloClient({
-  uri: `http://localhost:8001/`,
+  uri: api_uri,
 });
 
 ReactDOM.render(
