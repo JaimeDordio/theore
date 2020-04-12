@@ -9,7 +9,7 @@ import * as serviceWorker from "./serviceWorker";
 
 const api_uri =
   process.env.NODE_ENV === "production"
-    ? `https://theore.now.sh/`
+    ? `https://theore-api.herokuapp.com`
     : `http://localhost:8001`;
 
 const client = new ApolloClient({
