@@ -4,7 +4,8 @@ import { gql } from "apollo-boost";
 import md5 from "md5";
 import cloneDeep from "clone-deep";
 
-import ErrorPill from "../Utils/ErrorPill";
+import ErrorPill from "../Utils/Components/ErrorPill";
+import { FormInput } from "../Utils/Styled/FormInput";
 
 const LOGIN__REQUEST = gql`
   mutation Login($username: String!, $password: String!) {
@@ -134,12 +135,7 @@ const Login = (props) => {
             >
               Name
             </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="name"
-              type="text"
-              placeholder="Jaime Dordio"
-            />
+            <FormInput id="name" type="text" placeholder="Jaime Dordio" />
           </div>
         )}
 
@@ -150,12 +146,7 @@ const Login = (props) => {
           >
             Username
           </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            id="username"
-            type="text"
-            placeholder="jaimedordio"
-          />
+          <FormInput id="username" type="text" placeholder="jaimedordio" />
         </div>
         <div className="mb-6">
           <label
@@ -164,17 +155,12 @@ const Login = (props) => {
           >
             Password
           </label>
-          <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-            id="password"
-            type="password"
-            placeholder="······"
-          />
+          <FormInput id="password" type="password" placeholder="······" />
         </div>
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between">
           <button
             type="submit"
-            className="bg-gray-900 hover:bg-gray-700 text-white text-sm font-medium py-2 px-5 rounded"
+            className="bg-gray-900 hover:bg-gray-700 text-white text-sm font-medium py-2 px-5 rounded transition duration-300 ease-in-out"
           >
             {loginState ? "Log in" : "Register"}
           </button>

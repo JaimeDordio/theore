@@ -1,13 +1,13 @@
 import React from "react";
 
 import Header  from "../Components/Header";
-import Content from "../Components/Content/Content";
+import Content from "../Components/Content";
 
 const App = (props) => {
   return (
     <div>
       <Header />
-      <div className="max-w-screen-lg mx-auto">
+      <div className="p-4">
         <Content/>
       </div>
     </div>

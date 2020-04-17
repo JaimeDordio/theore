@@ -16,29 +16,35 @@ const Header = (props) => {
             </span>
           </Link>
           <input
-            className="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block appearance-none leading-normal"
+            className="bg-white focus:outline-none border border-gray-300 focus:border-gray-500 rounded py-2 px-4 block appearance-none leading-normal"
             type="text"
             placeholder="Search a store"
           />
           <Link
             to="/"
-            className="block lg:inline-block text-black hover:text-gray-500 mx-4"
+            className="block lg:inline-block text-black text-base hover:text-gray-500 mx-4"
           >
             Home
           </Link>
         </div>
 
         <div className="flex items-center">
+          <Link
+            to="/addStore"
+            className="bg-transparent hover:bg-gray-300 text-gray-900 text-xs font-medium uppercase py-2 px-4 mx-2 border border-gray-400 hover:border-transparent rounded"
+          >
+            Add new store
+          </Link>
           {localStorage.getItem("userId") &&
           localStorage.getItem("username") &&
           localStorage.getItem("userAuthtoken") ? (
             <>
-              <div className="block mt-4 lg:inline-block lg:mt-0 text-sm mr-4">
+              <div className="block lg:inline-block text-sm ml-4">
                 Hello, {localStorage.getItem("username")}
               </div>
 
               <div
-                className="block mt-4 lg:inline-block lg:mt-0 text-sm hover:text-gray-600 mr-4 cursor-pointer"
+                className="block mt-4 lg:inline-block lg:mt-0 text-sm underline hover:text-gray-600 ml-2 cursor-pointer"
                 onClick={() => {
                   localStorage.removeItem("userId");
                   localStorage.removeItem("username");
@@ -52,9 +58,9 @@ const Header = (props) => {
           ) : (
             <Link
               to="/login"
-              className="bg-gray-900 hover:bg-gray-700 text-white text-sm font-medium py-2 px-5 rounded"
+              className="bg-gray-900 hover:bg-gray-700 text-white text-xs font-medium uppercase py-2 px-4 border border-black hover:border-transparent rounded ml-2"
             >
-              Login / Register
+              Log in | Sign up
             </Link>
           )}
         </div>

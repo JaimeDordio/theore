@@ -1,9 +1,9 @@
 import React from "react";
 
-import Stores from "../Stores";
+import StoresList from "./StoresList";
 
 const Home = (props) => {
-  return <Stores />;
+  return <StoresList />;
 };
 
 export default Home;
