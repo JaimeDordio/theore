@@ -52,7 +52,7 @@ const Query = {
     const db = client.db("theore");
     const storesCollection = db.collection("stores");
 
-    const result = await storesCollection.find({name}).toArray();
+    const result = await storesCollection.find({'name': { '$regex' : name, '$options' : 'i' }}).toArray();
 
     return result;
   }
