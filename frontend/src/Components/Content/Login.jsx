@@ -135,7 +135,7 @@ const Login = (props) => {
             >
               Name
             </label>
-            <FormInput id="name" type="text" placeholder="Jaime Dordio" />
+            <input id="name" type="text" placeholder="Jaime Dordio" />
           </div>
         )}
 
@@ -146,7 +146,7 @@ const Login = (props) => {
           >
             Username
           </label>
-          <FormInput id="username" type="text" placeholder="jaimedordio" />
+          <input id="username" type="text" placeholder="jaimedordio" />
         </div>
         <div className="mb-6">
           <label
@@ -155,7 +155,7 @@ const Login = (props) => {
           >
             Password
           </label>
-          <FormInput id="password" type="password" placeholder="······" />
+          <input id="password" type="password" placeholder="······" />
         </div>
         <div className="flex flex-wrap items-center justify-between">
           <button

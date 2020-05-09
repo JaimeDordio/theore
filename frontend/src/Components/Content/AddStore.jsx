@@ -31,22 +31,24 @@ const AddStore = (props) => {
     { loading: addStoreLoading, error: addStoreError, data: addStoreData },
   ] = useMutation(ADD_STORE__REQUEST);
 
-  const [loginState, setLoginState] = useState(true);
+  const [loginState, setLoginState] = useState(null);
   const [addStoreDataState, setAddStoreDataState] = useState({
     storeName: "",
     website: "",
   });
 
+  const localStorageObj = {
+    userId: localStorage.getItem("userId"),
+    username: localStorage.getItem("username"),
+    userAuthtoken: localStorage.getItem("userAuthtoken"),
+  };
+
   useEffect(() => {
-    const localStorage = {
-      userId: localStorage.getItem("userId"),
-      username: localStorage.getItem("username"),
-      userAuthtoken: localStorage.getItem("userAuthtoken"),
-    };
+    
     if (
-      localStorage.userId &&
-      localStorage.username &&
-      localStorage.userAuthtoken
+      localStorageObj.userId &&
+      localStorageObj.username &&
+      localStorageObj.userAuthtoken
     ) {
       setLoginState(true);
     } else setLoginState(false);
@@ -56,15 +58,17 @@ const AddStore = (props) => {
     console.log("[AddStore.jsx] onSubmitHandler");
     const clonedState = cloneDeep(addStoreDataState);
 
-    clonedState.storeName = document.getElementById("storeName").value;
-    clonedState.website = document.getElementById("website").value;
+    clonedState.storeName = document.getElementById("storeNameInput").value;
+    clonedState.website = document.getElementById("storeUrlInput").value;
     setAddStoreDataState(clonedState);
 
     if (loginState) {
       await addStore({
         variables: {
-          storeName: clonedState.storeName,
+          name: clonedState.storeName,
           website: clonedState.website,
+          author: localStorageObj.userId,
+          token: localStorageObj.userAuthtoken
         },
       }).catch((e) => {
         console.log("Add Store error", e);
@@ -89,7 +93,7 @@ const AddStore = (props) => {
               <form
                 className="mt-8"
                 onSubmit={(event) => {
-                  event.preventDefault();
+                  event.preventDefault(); 
                   onSubmitHandler();
                 }}
               >
@@ -101,6 +105,7 @@ const AddStore = (props) => {
                     <input
                       placeholder="Apple"
                       type="text"
+                      id="storeNameInput"
                       className="text-md block px-3 py-2 rounded-lg w-full
                     bg-white border-2 border-gray-300 placeholder-gray-600 shadow-sm focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
                     />
@@ -110,6 +115,7 @@ const AddStore = (props) => {
                     <input
                       placeholder="apple.com"
                       type="url"
+                      id="storeUrlInput"
                       className="text-md block px-3 py-2 rounded-lg w-full
                     bg-white border-2 border-gray-300 placeholder-gray-600 shadow-sm focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
                     />
