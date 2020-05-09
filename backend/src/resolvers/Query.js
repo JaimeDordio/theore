@@ -38,6 +38,23 @@ const Query = {
     const result = await storesCollection.find({}).toArray();
 
     return result;
+  },
+
+  searchStore: async (parent, args, ctx, info) => {
+    const { name } = args;
+    const { client } = ctx;
+
+    console.log(chalk.blue(`----------------------------------------`));
+    console.log(chalk.blue(`REQUEST MADE TO 'searchStore'`));
+    console.log(chalk.blue(`Name: ${name}`));
+    console.log(chalk.blue(`----------------------------------------`));
+
+    const db = client.db("theore");
+    const storesCollection = db.collection("stores");
+
+    const result = await storesCollection.find({name}).toArray();
+
+    return result;
   }
 };
 
