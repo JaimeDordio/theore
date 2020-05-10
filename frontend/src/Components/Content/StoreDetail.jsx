@@ -90,8 +90,8 @@ const StoreDetail = (props) => {
 
         <div className="flex-col p-12 bg-gray-200 w-2/6">
           <div
-            className="flex justify-start h-auto p-3 border-solid border-gray-400 border-2 justify-start shadow rounded-md cursor-pointer"
-            // onClick={() => location.href = website}
+            className="flex justify-start h-auto p-3 border-solid border-gray-400 border-2 justify-start shadow rounded-md cursor-pointer hover:bg-gray-400"
+            onClick={() => window.open(website)}
           >
             <div className="h-10 w-10 mr-3">
               <svg
