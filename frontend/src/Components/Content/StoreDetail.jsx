@@ -29,9 +29,9 @@ const StoreDetail = (props) => {
         onClick={() => onStoreClick(null)}
       ></div>
       <div
-        className="fixed bg-white opacity-100 m-auto rounded-md overflow-hidden flex justify-between"
+        className="fixed bg-white opacity-100 m-auto w-3/4 rounded-md overflow-hidden flex justify-between"
         style={{
-          width: "70rem",
+          // width: "70rem",
           top: "50%",
           left: "50%",
           transform: "translate(-50%, -50%)",
