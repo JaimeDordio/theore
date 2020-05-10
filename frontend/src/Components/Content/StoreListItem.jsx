@@ -6,18 +6,18 @@ const StoresListItem = (props) => {
 
   return (
     <div
-      className="flex flex-col bg-white p-5 max-w-sm rounded-lg shadow"
+      className="flex flex-col bg-white p-5 max-w-sm rounded-lg shadow cursor-pointer"
       onClick={() => onStoreClick(props.store)}
     >
       <div>
-        <a className="text-base text-black font-medium" href="#">
+        <p className="text-base text-black font-medium" href="#">
           {name}
-        </a>
+        </p>
       </div>
       <div className="flex justify-between items-center mt-3">
-        <a className="text-gray-600 text-sm" href="#">
+        <span className="text-gray-600 text-sm" href="#">
           {author.username}
-        </a>
+        </span>
         <p className="text-gray-600 text-xs">{dateAdded}</p>
       </div>
     </div>
