@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 const REMOVE_STORE__REQUEST = gql`
@@ -13,8 +12,6 @@ const REMOVE_STORE__REQUEST = gql`
 const StoreDetail = (props) => {
   const { _id, name, website, author, dateAdded } = props.store;
   const { onStoreClick } = props;
-
-  const history = useHistory();
 
   const [
     removeStore,
@@ -28,32 +25,33 @@ const StoreDetail = (props) => {
   const [responseUrlState, setResponseUrlState] = useState(null);
 
   useEffect(() => {
-    // axios
-    //   .get("https://api.apiflash.com/v1/urltoimage", {
-    //     params: {
-    //       access_key: "aa868f7e4ccd478a91502bbe740864a9",
-    //       format: "png",
-    //       url: website,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     console.log("response", response);
-    //     setResponseUrlState(response.request.responseURL);
-    //   });
+    console.log(process.env.REACT_APP_APIFLASH_KEY);
+    axios
+      .get("https://api.apiflash.com/v1/urltoimage", {
+        params: {
+          access_key: process.env.REACT_APP_APIFLASH_KEY,
+          format: "png",
+          url: website,
+        },
+      })
+      .then((response) => {
+        console.log("response", response);
+        setResponseUrlState(response.request.responseURL);
+      }).catch(error => console.log("Error on screenshot request --", error));
   }, [props.store]);
 
   const onStoreDeleteHandler = async () => {
-    // await removeStore({
-    //   variables: {
-    //     storeId: _id,
-    //     userId: localStorage.getItem("userId"),
-    //     userToken: localStorage.getItem("userAuthtoken")
-    //   },
-    // }).catch((e) => {
-    //   console.log("Remove store error", e);
-    // });
+    await removeStore({
+      variables: {
+        storeId: _id,
+        userId: localStorage.getItem("userId"),
+        userToken: localStorage.getItem("userAuthtoken"),
+      },
+    }).catch((e) => {
+      console.log("Remove store error", e);
+    });
 
-    history.push("/");
+    window.location.href = "/";
   };
 
   return (
@@ -65,7 +63,6 @@ const StoreDetail = (props) => {
       <div
         className="fixed bg-white opacity-100 m-auto w-3/4 rounded-md overflow-hidden flex justify-between"
         style={{
-          // width: "70rem",
           top: "30%",
           left: "50%",
           transform: "translate(-50%, -30%)",
@@ -80,17 +77,15 @@ const StoreDetail = (props) => {
           </div>
 
           <div className="w-9/12 h-auto">
-            <img
-              className="w-full h-auto"
-              src="https://api.apiflash.com/v1/urltoimage?access_key=aa868f7e4ccd478a91502bbe740864a9&format=png&url=https:%2F%2Fwww.apple.com"
-              alt=""
-            />
+            {responseUrlState ? (
+              <img className="w-full h-auto" src={responseUrlState} alt="" />
+            ) : null}
           </div>
         </div>
 
         <div className="flex-col p-12 bg-gray-200 w-2/6">
           <div
-            className="flex justify-start h-auto p-3 border-solid border-gray-400 border-2 justify-start shadow rounded-md cursor-pointer hover:bg-gray-400"
+            className="flex justify-start h-auto p-3 border-solid border-gray-400 border-2 justify-start shadow rounded-md cursor-pointer bg-white hover:bg-gray-400"
             onClick={() => window.open(website)}
           >
             <div className="h-10 w-10 mr-3">
