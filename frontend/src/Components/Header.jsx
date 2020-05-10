@@ -39,7 +39,7 @@ const Header = (props) => {
   }, [searchInputState]);
 
   return (
-    <nav className="p-4 bg-gray-100">
+    <nav className="p-4 bg-white shadow">
       <div className="max-w-screen-lg flex items-center justify-between mx-auto">
         <div className="flex items-center align-start">
           <Link to="/" className="flex items-center">

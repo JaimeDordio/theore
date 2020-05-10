@@ -18,7 +18,8 @@ const App = (props) => {
           />
         </div>
       ) : null}
-      <div className="p-4">
+
+      <div className="pt-12">
         <Content onStoreClick={setSelectedStoreState} />
       </div>
     </div>

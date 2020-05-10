@@ -10,6 +10,8 @@ module.exports = {
     },
     extend: {},
   },
-  variants: {},
+  variants: {
+    borderWidth: ["responsive", "last", "hover", "focus"],
+  },
   plugins: [],
 };

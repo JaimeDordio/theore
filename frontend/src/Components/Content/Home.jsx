@@ -8,10 +8,10 @@ const Home = (props) => {
   return (
     <div>
       <div className="flex">
-        <div className="flex-none sm:flex-1 md:flex-auto lg:flex-initial xl:flex-1">
+        <div className="w-4/6">
           <StoresList onStoreClick={onStoreClick} />
         </div>
-        <div className="flex-1"></div>
+        <div className="w-2/6 bg-white border border-gray-400 shadow-sm rounded-md overflow-hidden ml-5"></div>
       </div>
     </div>
   );
