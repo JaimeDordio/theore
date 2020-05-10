@@ -55,8 +55,8 @@ const StoreDetail = (props) => {
         </div>
 
         <div className="flex-col p-12 bg-gray-200 w-2/6">
-          <div className="flex h-10 mb-12 p-6">
-            <div>
+          <div className="flex mb-12 p-2 border-solid border-gray-400 border-2 justify-start shadow rounded-md">
+            <div className="w-12 h-10 mt-1">
               <svg
                 height="100%"
                 width="100%"
@@ -71,9 +71,9 @@ const StoreDetail = (props) => {
                 />
               </svg>
             </div>
-            <div>
+            <div className="ml-4">
               <div>Website</div>
-              <div>{website}</div>
+              <div className="text-gray-600">{website}</div>
             </div>
           </div>
 
