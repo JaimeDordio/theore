@@ -44,7 +44,6 @@ const AddStore = (props) => {
   };
 
   useEffect(() => {
-    
     if (
       localStorageObj.userId &&
       localStorageObj.username &&
@@ -73,6 +72,7 @@ const AddStore = (props) => {
       }).catch((e) => {
         console.log("Add Store error", e);
       });
+      props.history.push(`/`);
     } else {
       props.history.push(`/login`);
     }

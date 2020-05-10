@@ -1,14 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 
-import Header  from "../Components/Header";
+import Header from "../Components/Header";
 import Content from "../Components/Content";
+import StoreDetail from "../Components/Content/StoreDetail";
 
 const App = (props) => {
+  const [selectedStoreState, setSelectedStoreState] = useState(null);
+
   return (
-    <div>
+    <div className="relative">
       <Header />
+      {selectedStoreState ? (
+        <div className="fixed inset-0">
+          <StoreDetail
+            store={selectedStoreState}
+            onStoreClick={setSelectedStoreState}
+          />
+        </div>
+      ) : null}
       <div className="p-4">
-        <Content/>
+        <Content onStoreClick={setSelectedStoreState} />
       </div>
     </div>
   );

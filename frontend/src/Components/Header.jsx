@@ -30,7 +30,7 @@ const Header = (props) => {
 
   useEffect(() => {
     if (searchInputState) {
-    searchStore({
+      searchStore({
         variables: {
           name: searchInputState,
         },
@@ -40,7 +40,6 @@ const Header = (props) => {
 
   return (
     <nav className="p-4 bg-gray-100">
-      {console.log(searchStoreData)}
       <div className="max-w-screen-lg flex items-center justify-between mx-auto">
         <div className="flex items-center align-start">
           <Link to="/" className="flex items-center">
@@ -75,7 +74,7 @@ const Header = (props) => {
           </Link>
           {localStorage.getItem("userId") &&
           localStorage.getItem("username") &&
-          localStorage.getItem("userAuthtoken") ? (
+          localStorage.getItem("userAuthtoken") !== "null" ? (
             <>
               <div className="block lg:inline-block text-sm ml-4">
                 Hello, {localStorage.getItem("username")}

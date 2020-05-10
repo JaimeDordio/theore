@@ -20,6 +20,8 @@ const ALL_STORES__QUERY = gql`
 `;
 
 const StoresList = (props) => {
+  const { onStoreClick } = props;
+
   const {
     loading: allStoresLoading,
     error: allStoresError,
@@ -32,7 +34,13 @@ const StoresList = (props) => {
   return (
     <div className="">
       {storesData.getAllStores.map((store) => {
-        return <StoresListItem key={store._id} store={store} />;
+        return (
+          <StoresListItem
+            key={store._id}
+            store={store}
+            onStoreClick={onStoreClick}
+          />
+        );
       })}
     </div>
   );

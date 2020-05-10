@@ -24,6 +24,11 @@ const SIGNUP__REQUEST = gql`
       username
       token
     }
+    login(username: $username, password: $password) {
+      _id
+      username
+      token
+    }
   }
 `;
 
@@ -58,9 +63,9 @@ const Login = (props) => {
       );
     } else if (!loginState && signupUserData) {
       _saveUserData(
-        signupUserData.signUp._id,
-        signupUserData.signUp.username,
-        signupUserData.signUp.token
+        signupUserData.login._id,
+        signupUserData.login.username,
+        signupUserData.login.token
       );
     }
   });

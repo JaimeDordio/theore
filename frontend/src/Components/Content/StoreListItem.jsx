@@ -2,9 +2,13 @@ import React from "react";
 
 const StoresListItem = (props) => {
   const { name, author, dateAdded } = props.store;
+  const { onStoreClick } = props;
 
   return (
-    <div className="flex flex-col bg-white p-5 max-w-sm rounded-lg shadow">
+    <div
+      className="flex flex-col bg-white p-5 max-w-sm rounded-lg shadow"
+      onClick={() => onStoreClick(props.store)}
+    >
       <div>
         <a className="text-base text-black font-medium" href="#">
           {name}
