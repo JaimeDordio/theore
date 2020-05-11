@@ -32,7 +32,7 @@ const StoresList = (props) => {
   if (allStoresError) return <p>Error :(</p>;
 
   return (
-    <div className="border border-gray-400 shadow-sm rounded-md overflow-hidden">
+    <div className="border border-gray-400 shadow-sm rounded-md overflow-hidden flex flex-col-reverse">
       {storesData.getAllStores.map((store) => {
         return (
           <StoresListItem

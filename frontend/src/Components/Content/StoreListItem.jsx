@@ -6,7 +6,7 @@ const StoresListItem = (props) => {
 
   return (
     <div
-      className="flex bg-white hover:bg-gray-200 p-4 h-24 w-full cursor-pointer border-b border-gray-400 last:border-b-0"
+      className="flex bg-white hover:bg-gray-200 p-4 h-24 w-full cursor-pointer border-b border-gray-400 first:border-b-0"
       onClick={() => onStoreClick(props.store)}
     >
       <div className="mr-4 w-16 flex items-center">
