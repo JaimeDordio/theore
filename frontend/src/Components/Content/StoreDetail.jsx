@@ -25,19 +25,18 @@ const StoreDetail = (props) => {
   const [responseUrlState, setResponseUrlState] = useState(null);
 
   useEffect(() => {
-    // axios
-    //   .get("https://api.apiflash.com/v1/urltoimage", {
-    //     params: {
-    //       access_key: process.env.REACT_APP_APIFLASH_KEY,
-    //       format: "png",
-    //       url: website,
-    //     },
-    //   })
-    //   .then((response) => {
-    //     console.log("response", response);
-    //     setResponseUrlState(response.request.responseURL);
-    //   })
-    //   .catch((error) => console.log("Error on screenshot request --", error));
+    axios
+      .get("https://api.apiflash.com/v1/urltoimage", {
+        params: {
+          access_key: process.env.REACT_APP_APIFLASH_KEY,
+          format: "png",
+          url: website,
+        },
+      })
+      .then((response) => {
+        setResponseUrlState(response.request.responseURL);
+      })
+      .catch((error) => console.log("Error on screenshot request --", error));
   }, [props.store]);
 
   const onStoreDeleteHandler = async () => {
@@ -73,18 +72,13 @@ const StoreDetail = (props) => {
             <div className=" text-3xl leading-9 font-bold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 mb-5">
               {name}
             </div>
-            <div>{author.username}</div>
+            <div>Author: {author.username}</div>
           </div>
 
           <div className="w-9/12 h-auto">
-            <img
-              className="w-full h-auto"
-              src="https://api.apiflash.com/v1/urltoimage?access_key=aa868f7e4ccd478a91502bbe740864a9&format=png&url=https:%2F%2Fwww.apple.com"
-              alt=""
-            />
-            {/* {responseUrlState ? (
+            {responseUrlState ? (
               <img className="w-full h-auto" src={responseUrlState} alt="" />
-            ) : null} */}
+            ) : null}
           </div>
         </div>
 
@@ -110,7 +104,9 @@ const StoreDetail = (props) => {
             </div>
             <div className="flex-col justify-between h-10">
               <div className="text-sm text-black m-0">Website</div>
-              <div className="text-xs text-gray-600 m-0">{website.replace(/^https?\:\/\//i, "")} ⎋</div>
+              <div className="text-xs text-gray-600 m-0">
+                {website.replace(/^https?\:\/\//i, "")} ⎋
+              </div>
             </div>
           </div>
 

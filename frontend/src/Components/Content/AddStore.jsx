@@ -54,7 +54,6 @@ const AddStore = (props) => {
   });
 
   const onSubmitHandler = async () => {
-    console.log("[AddStore.jsx] onSubmitHandler");
     const clonedState = cloneDeep(addStoreDataState);
 
     clonedState.storeName = document.getElementById("storeNameInput").value;

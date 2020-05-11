@@ -71,7 +71,6 @@ const Login = (props) => {
   });
 
   const onSubmitHandler = async () => {
-    console.log("[Login.jsx] onSubmitHandler");
     const clonedState = cloneDeep(loginDataState);
 
     clonedState.name = loginState ? "" : document.getElementById("name").value;

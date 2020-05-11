@@ -5,17 +5,27 @@ import { useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
 import theore_logo from "../images/theore_logo.svg";
+import DropdownResults from "./Utils/Components/DropdownResults";
 
 const SEARCH_STORE__REQUEST = gql`
   query SearchStore($name: String!) {
     searchStore(name: $name) {
+      _id
       name
       website
+      dateAdded
+      rating
+      author {
+        _id
+        username
+      }
     }
   }
 `;
 
 const Header = (props) => {
+  const { onSearchResultClick } = props;
+
   const [
     searchStore,
     {
@@ -27,6 +37,7 @@ const Header = (props) => {
 
   const [searchInputState, setSearchInputState] = useState(null);
   const [searchResultsState, setSearchResultsState] = useState(null);
+  const [dropdownActiveState, setDropdownActiveState] = useState(false);
 
   useEffect(() => {
     if (searchInputState) {
@@ -35,8 +46,14 @@ const Header = (props) => {
           name: searchInputState,
         },
       });
-    }
+      setDropdownActiveState(true);
+    } else setDropdownActiveState(false);
   }, [searchInputState]);
+
+  const onSearchResultClick_Handler = (store) => {
+    onSearchResultClick(store);
+    setDropdownActiveState(false);
+  }
 
   return (
     <nav className="p-4 bg-white shadow">
@@ -48,15 +65,22 @@ const Header = (props) => {
               Theore
             </span>
           </Link>
-          <input
-            className="bg-white focus:outline-none border border-gray-300 focus:border-gray-500 rounded py-2 px-4 block appearance-none leading-normal"
-            type="text"
-            placeholder="Search a store"
-            id="searchInput"
-            onChange={() =>
-              setSearchInputState(document.getElementById("searchInput").value)
-            }
-          />
+          <div>
+            <input
+              className="w-64 bg-white focus:outline-none border border-gray-300 focus:border-gray-500 rounded py-2 px-4 block appearance-none leading-normal"
+              type="text"
+              placeholder="Search a store"
+              id="searchInput"
+              onChange={() =>
+                setSearchInputState(
+                  document.getElementById("searchInput").value
+                )
+              }
+            />
+            {dropdownActiveState && searchStoreData ? (
+              <DropdownResults onSearchResultClick={onSearchResultClick_Handler} results={searchStoreData.searchStore} />
+            ) : null}
+          </div>
           <Link
             to="/"
             className="block lg:inline-block text-black text-base hover:text-gray-500 mx-4"
