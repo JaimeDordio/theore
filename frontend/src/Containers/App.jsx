@@ -8,7 +8,7 @@ const App = (props) => {
   const [selectedStoreState, setSelectedStoreState] = useState(null);
 
   return (
-    <div className="relative">
+    <div>
       <Header />
       {selectedStoreState ? (
         <div className="fixed inset-0">

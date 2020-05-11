@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import axios from "axios";
@@ -25,19 +25,19 @@ const StoreDetail = (props) => {
   const [responseUrlState, setResponseUrlState] = useState(null);
 
   useEffect(() => {
-    console.log(process.env.REACT_APP_APIFLASH_KEY);
-    axios
-      .get("https://api.apiflash.com/v1/urltoimage", {
-        params: {
-          access_key: process.env.REACT_APP_APIFLASH_KEY,
-          format: "png",
-          url: website,
-        },
-      })
-      .then((response) => {
-        console.log("response", response);
-        setResponseUrlState(response.request.responseURL);
-      }).catch(error => console.log("Error on screenshot request --", error));
+    // axios
+    //   .get("https://api.apiflash.com/v1/urltoimage", {
+    //     params: {
+    //       access_key: process.env.REACT_APP_APIFLASH_KEY,
+    //       format: "png",
+    //       url: website,
+    //     },
+    //   })
+    //   .then((response) => {
+    //     console.log("response", response);
+    //     setResponseUrlState(response.request.responseURL);
+    //   })
+    //   .catch((error) => console.log("Error on screenshot request --", error));
   }, [props.store]);
 
   const onStoreDeleteHandler = async () => {
@@ -61,7 +61,7 @@ const StoreDetail = (props) => {
         onClick={() => onStoreClick(null)}
       ></div>
       <div
-        className="fixed bg-white opacity-100 m-auto w-3/4 rounded-md overflow-hidden flex justify-between"
+        className="fixed bg-white m-auto w-full md:w-5/6 lg:w-3/4 rounded-md overflow-hidden flex flex-col md:flex-row justify-between"
         style={{
           top: "30%",
           left: "50%",
@@ -77,18 +77,23 @@ const StoreDetail = (props) => {
           </div>
 
           <div className="w-9/12 h-auto">
-            {responseUrlState ? (
+            <img
+              className="w-full h-auto"
+              src="https://api.apiflash.com/v1/urltoimage?access_key=aa868f7e4ccd478a91502bbe740864a9&format=png&url=https:%2F%2Fwww.apple.com"
+              alt=""
+            />
+            {/* {responseUrlState ? (
               <img className="w-full h-auto" src={responseUrlState} alt="" />
-            ) : null}
+            ) : null} */}
           </div>
         </div>
 
-        <div className="flex-col p-12 bg-gray-200 w-2/6">
+        <div className="flex-col p-12 bg-gray-200 w-full md:w-2/6">
           <div
             className="flex justify-start h-auto p-3 border-solid border-gray-400 border-2 justify-start shadow rounded-md cursor-pointer bg-white hover:bg-gray-400"
             onClick={() => window.open(website)}
           >
-            <div className="h-10 w-10 mr-3">
+            <div className="h-8 w-8 mr-3 my-auto">
               <svg
                 height="100%"
                 width="100%"
@@ -105,7 +110,7 @@ const StoreDetail = (props) => {
             </div>
             <div className="flex-col justify-between h-10">
               <div className="text-sm text-black m-0">Website</div>
-              <div className="text-xs text-gray-600 m-0">{website} ⎋</div>
+              <div className="text-xs text-gray-600 m-0">{website.replace(/^https?\:\/\//i, "")} ⎋</div>
             </div>
           </div>
 
