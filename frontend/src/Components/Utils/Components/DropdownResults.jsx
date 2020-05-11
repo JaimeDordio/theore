@@ -6,12 +6,13 @@ const DropdownResults = (props) => {
   return (
     <>
       {results ? (
-        <ul className="absolute mt-2 bg-white border-gray-300 border rounded-md w-2/6">
+        <ul className="absolute mt-2 bg-white border-gray-300 border rounded-md w-2/6 flex flex-col overflow-y-scroll">
           {results.map((result) => {
             return (
               <li
                 key={result._id}
-                className="shadow bg-white top-100 z-40 w-full lef-0 rounded max-h-select overflow-y-auto"
+                className="shadow bg-white w-full lef-0 overflow-y-auto"
+                style={{ height: "fit-content" }}
                 onClick={() => {
                   onSearchResultClick(result);
                 }}
