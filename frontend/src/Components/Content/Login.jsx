@@ -109,7 +109,7 @@ const Login = (props) => {
   };
 
   return (
-    <div className="w-full max-w-xs mx-auto my-20">
+    <div className="w-full max-w-sm mx-auto my-20">
       {loginUserError ? (
         <div>
           {loginUserError.graphQLErrors.map(({ message }, i) => (
